@@ -11,6 +11,8 @@ Tools:
 - JUnit
 - TestNG
 - F12 developer tool (click F12 button on your keyboard when Chrome is opened)
+- Playwright (as dependency in pom.xml)
+- Selenium  (as dependency in pom.xml)
 
 Check version of Chrome
  - Open PowerShell and run the command: (Get-Item "C:\Program Files\Google\Chrome\Application\chrome.exe").VersionInfo.ProductVersion
