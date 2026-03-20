@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org" >
+<suite name="TestSuite" parallel="none" thread-count="2">
+
+    <parameter name="user" value="standard_user"/>
+    <parameter name="pass" value="secret_sauce"/>
+    <parameter name="title" value="Google"/>
+
+    <test name="FunctionalTesting">
+        <groups>
+            <run>
+                <!-- Możesz wybrać, które grupy chcesz odpalić -->
+                <include name="smoke"/>
+                <include name="login_logic"/>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="edu.pg.ui.test.run.TestRun"/>
+        </classes>
+    </test>
+</suite>
