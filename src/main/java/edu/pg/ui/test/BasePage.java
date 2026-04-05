@@ -29,7 +29,7 @@ public class BasePage {
 
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true, groups = {"smoke", "regression"})
     public void setUp() {
         String chromiumPath = "/home/teamsharq/IdeaProjects/test_automation_ui/testautomationUI/src/test/resources/chromedriver/chromedriver";
         String chromePath = "/usr/bin/google-chrome";
@@ -46,8 +46,11 @@ public class BasePage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        if (driver != null) driver.quit();
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
     }
 }

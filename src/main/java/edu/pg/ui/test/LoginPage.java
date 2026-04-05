@@ -2,6 +2,8 @@ package edu.pg.ui.test;
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -20,6 +22,10 @@ public class LoginPage extends BasePage {
     @FindBy(className = "login_logo") private WebElement logo;
     @FindBy(xpath = "//*[@id='login-button']") private WebElement loginButton;
     @FindBy(css = "#password") private WebElement password;
+    @FindBy(css = "[data-test='error']") private WebElement errorElement;
+
+    public LoginPage(WebDriver driver) {
+    }
 
     public LoginPage clickLoginButton() {
         log.info("Click on the Login Button");
@@ -42,6 +48,29 @@ public class LoginPage extends BasePage {
     public String getLogoTextFromWebsiteHeader() {
         log.info("Get logo text from the header from the current website{}", logo.getText());
         return logo.getText();
+    }
+
+    public boolean isErrorMessageDisplayed() {
+        try {
+            return errorElement.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
+    public WebElement getErrorElement() {
+        return errorElement;
+    }
+
+    // Pobiera tekst błędu
+    public String getErrorMessageText() {
+        return errorElement.getText();
+    }
+
+    public void login(String user, String pass) {
+        enterUsername(user);
+        enterPasswordToSauceDemoWebsiteOnTestEnv(pass);
+        clickLoginButton();
     }
 
 }

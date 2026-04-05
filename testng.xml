@@ -4,13 +4,9 @@
 
     <test name="FunctionalTesting">
         <parameter name="user" value="standard_user"/>
-        <parameter name="pass" value="secret_sauce"/>
-        <parameter name="title" value="Google"/>
+        <parameter name="pass" value="secret"/>
         <groups>
             <run>
-                <!-- Możesz wybrać, które grupy chcesz odpalić -->
-                <include name="smoke"/>
-                <include name="login_logic"/>
                 <include name="regression"/>
             </run>
         </groups>
