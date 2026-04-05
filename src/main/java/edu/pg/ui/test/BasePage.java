@@ -1,5 +1,6 @@
 package edu.pg.ui.test;
 
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -8,10 +9,21 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.apache.commons.io.FileUtils;
 
+import org.openqa.selenium.OutputType;
+
+import org.openqa.selenium.TakesScreenshot;
+import java.io.File;
 import java.io.File;
 import java.time.Duration;
+import java.io.IOException;
 
+import java.text.SimpleDateFormat;
+
+import java.util.Date;
+
+@Slf4j
 public class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -51,6 +63,24 @@ public class BasePage {
         if (driver != null) {
             driver.quit();
             driver = null;
+        }
+    }
+
+    public void takeScreenshot(String testName) {
+        // 1. Tworzymy format daty dla unikalnej nazwy pliku
+        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+
+        // 2. Rzutujemy drivera na interfejs TakesScreenshot
+        File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+        String path = System.getProperty("user.dir") + "/screenshots/" + testName + "_" + timestamp + ".png";
+
+        try {
+            // 4. Kopiujemy plik z pamięci tymczasowej na dysk
+            FileUtils.copyFile(srcFile, new File(path));
+            log.info("Screenshot saved to: {}", path);
+        } catch (IOException e) {
+            log.error("Failed to save screenshot: {}", e.getMessage());
         }
     }
 }

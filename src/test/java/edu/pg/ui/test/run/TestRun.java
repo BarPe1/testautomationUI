@@ -53,6 +53,7 @@ public class TestRun extends BasePage {
 
         // Korzysta z nowej metody login
         loginPage.login(user, pass);
+        takeScreenshot("login_page_loaded");
 
         // Korzysta z getErrorElement()
         NewAssertForPage.assertVisible(loginPage.getErrorElement(), "Error alert should be visible");
