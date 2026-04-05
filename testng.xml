@@ -2,11 +2,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org" >
 <suite name="TestSuite" parallel="none" thread-count="2">
 
-    <parameter name="user" value="standard_user"/>
-    <parameter name="pass" value="secret_sauce"/>
-    <parameter name="title" value="Google"/>
-
     <test name="FunctionalTesting">
+        <parameter name="user" value="standard_user"/>
+        <parameter name="pass" value="secret_sauce"/>
+        <parameter name="title" value="Google"/>
         <groups>
             <run>
                 <!-- Możesz wybrać, które grupy chcesz odpalić -->

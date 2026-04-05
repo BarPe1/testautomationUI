@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AssertUnitClass.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test-automation-ui</a> &gt; <a href="index.source.html" class="el_package">edu.pg.ui.test</a> &gt; <span class="el_source">AssertUnitClass.java</span></div><h1>AssertUnitClass.java</h1><pre class="source lang-java linenums">package edu.pg.ui.test;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+<span class="fc" id="L13">@Slf4j</span>
+public class AssertUnitClass extends BasePage {
+    protected LoginPage loginPage;
+
+    public AssertUnitClass(WebDriver driver) {
+<span class="fc" id="L18">        super(driver);</span>
+<span class="fc" id="L19">    }</span>
+
+    @FindBy(xpath = &quot;//*[@data-test='error']&quot;) private WebElement error;
+    private Object Exception;
+
+    @Test
+    public void shouldCalculatedDiscountCorrectly() throws Exception {
+
+<span class="nc" id="L27">        int result = minusValue(100, 10);</span>
+<span class="nc" id="L28">        log.info(&quot;The result is: {}&quot;, result);</span>
+<span class="nc" id="L29">        Assertions.assertEquals(90, result, &quot;Discount price now is 90 PLN&quot;);</span>
+<span class="nc" id="L30">    }</span>
+
+    @Test
+    public void shouldCalculatedDiscount() throws Exception {
+<span class="nc" id="L34">        int value = minusValue(100, 10);</span>
+<span class="nc" id="L35">        Assertions.assertEquals(90, value,&quot;&quot;);</span>
+<span class="nc" id="L36">    }</span>
+
+    @Test
+    public void shouldCalculatedNotDiscount() throws Exception {
+//        Calculator calc = new Calculator();
+//        double result = calc.minus(100, 10);
+
+<span class="nc" id="L43">        int discount = minusValue(100, 10);</span>
+<span class="nc" id="L44">        log.info(&quot;The new added value is {}&quot;, discount);</span>
+<span class="nc" id="L45">        Assertions.assertEquals(90, discount, &quot;The new price now is 110 PLN&quot;);</span>
+<span class="nc" id="L46">    }</span>
+
+    @Test
+    public void testInvalidLogin() throws Exception {
+<span class="nc" id="L50">        loginPage.login(&quot;wrong_user&quot;, &quot;wrong_pass&quot;);</span>
+<span class="nc" id="L51">        assertTrue(loginPage.isErrorMessageDisplayed());</span>
+<span class="nc" id="L52">    }</span>
+
+   @Test
+   public void shouldBeErrorPopUp() throws Exception {
+<span class="nc" id="L56">        driver.get(&quot;https://saucedemo.com&quot;);</span>
+<span class="nc" id="L57">        loginPage.clickLoginButton();</span>
+<span class="nc" id="L58">        WebElement element = driver.findElement(By.xpath(&quot;//*[@data-test='error']&quot;));</span>
+<span class="nc" id="L59">        Assertions.assertEquals(&quot;Epic sadface: Username is required&quot;, String.valueOf(element),&quot;Error pop-ups&quot;);</span>
+<span class="nc" id="L60">   }</span>
+
+    private int minusValue(int a, int b){
+        //log.info(&quot;Value minus value from {} to {}&quot;, b, a);
+<span class="nc" id="L64">        return a - b;</span>
+    }
+
+    private int addValue(int a, int b){
+<span class="nc" id="L68">        log.info(&quot;Value adding value from {} to {} is&quot;, b, a);</span>
+<span class="nc" id="L69">        return a + b;</span>
+    }
+
+    @Test
+    public void shouldDisplayCorrectWelcomeMessage() throws Exception {
+<span class="nc" id="L74">        driver.get(&quot;https://google.com&quot;);</span>
+
+<span class="nc" id="L76">        String title = driver.getTitle();</span>
+<span class="nc" id="L77">        Assertions.assertNotNull(driver);</span>
+<span class="nc" id="L78">        Assertions.assertNotNull(title);</span>
+<span class="nc" id="L79">        Assertions.assertEquals(&quot;Google&quot;, title, &quot;It's a welcome message&quot;);</span>
+<span class="nc" id="L80">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

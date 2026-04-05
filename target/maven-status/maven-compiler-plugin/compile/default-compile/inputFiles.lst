@@ -1,2 +1,4 @@
-/home/teamsharq/IdeaProjects/test-automation-ui/src/main/java/edu/pg/ui/test/BasePage.java
-/home/teamsharq/IdeaProjects/test-automation-ui/src/main/java/edu/pg/ui/test/LoginPage.java
+/home/teamsharq/IdeaProjects/test_automation_ui/testautomationUI/src/main/java/edu/pg/ui/test/AssertUnitClass.java
+/home/teamsharq/IdeaProjects/test_automation_ui/testautomationUI/src/main/java/edu/pg/ui/test/BasePage.java
+/home/teamsharq/IdeaProjects/test_automation_ui/testautomationUI/src/main/java/edu/pg/ui/test/LoginPage.java
+/home/teamsharq/IdeaProjects/test_automation_ui/testautomationUI/src/main/java/edu/pg/ui/test/NewAssertUnitClass.java

@@ -1,0 +1,81 @@
+package edu.pg.ui.test;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@Slf4j
+public class AssertUnitClass extends BasePage {
+    protected LoginPage loginPage;
+
+    public AssertUnitClass(WebDriver driver) {
+        super(driver);
+    }
+
+    @FindBy(xpath = "//*[@data-test='error']") private WebElement error;
+    private Object Exception;
+
+    @Test
+    public void shouldCalculatedDiscountCorrectly() throws Exception {
+
+        int result = minusValue(100, 10);
+        log.info("The result is: {}", result);
+        Assertions.assertEquals(90, result, "Discount price now is 90 PLN");
+    }
+
+    @Test
+    public void shouldCalculatedDiscount() throws Exception {
+        int value = minusValue(100, 10);
+        Assertions.assertEquals(90, value,"");
+    }
+
+    @Test
+    public void shouldCalculatedNotDiscount() throws Exception {
+//        Calculator calc = new Calculator();
+//        double result = calc.minus(100, 10);
+
+        int discount = minusValue(100, 10);
+        log.info("The new added value is {}", discount);
+        Assertions.assertEquals(90, discount, "The new price now is 110 PLN");
+    }
+
+    @Test
+    public void testInvalidLogin() throws Exception {
+        loginPage.login("wrong_user", "wrong_pass");
+        assertTrue(loginPage.isErrorMessageDisplayed());
+    }
+
+   @Test
+   public void shouldBeErrorPopUp() throws Exception {
+        driver.get("https://saucedemo.com");
+        loginPage.clickLoginButton();
+        WebElement element = driver.findElement(By.xpath("//*[@data-test='error']"));
+        Assertions.assertEquals("Epic sadface: Username is required", String.valueOf(element),"Error pop-ups");
+   }
+
+    public int minusValue(int a, int b){
+        log.info("Value minus value from {} to {}", b, a);
+        return a - b;
+    }
+
+    public int addValue(int a, int b){
+        log.info("Value adding value from {} to {} is", b, a);
+        return a + b;
+    }
+
+    @Test
+    public void shouldDisplayCorrectWelcomeMessage() throws Exception {
+        driver.get("https://google.com");
+
+        String title = driver.getTitle();
+        Assertions.assertNotNull(driver);
+        Assertions.assertNotNull(title);
+        Assertions.assertEquals("Google", title, "It's a welcome message");
+    }
+}
