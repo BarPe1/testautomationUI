@@ -48,7 +48,8 @@ public class TestRun extends BasePage {
 
     @Test(groups = "regression")
     @Parameters({"user", "pass"})
-    public void shouldShowErrorForLockedOutUser(String user, String pass) throws Exception {
+    public void shouldShowErrorForLockedOutUser(@Optional("locked_out_user") String user,
+                                                @Optional("secret_sauce") String pass) throws Exception {
         driver.get("https://saucedemo.com");
 
         // Korzysta z nowej metody login
@@ -59,16 +60,22 @@ public class TestRun extends BasePage {
         NewAssertForPage.assertVisible(loginPage.getErrorElement(), "Error alert should be visible");
 
         // Korzysta z getErrorMessageText()
-        String expectedMsg = "Epic sadface: Username and password do not match any user in this service";
+        String expectedMsg = "Epic sadface: Sorry, this user has been locked out.";
         NewAssertForPage.assertTextEquals(loginPage.getErrorMessageText(), expectedMsg, "Wrong error message!");
     }
 
     @Test(groups = "regression")
     @Parameters({"user", "pass"})
-    public void shouldShowErrorForCredentials(@Optional("locked_out_user") String user,
-                                                @Optional("secret_sauce") String pass) {
+    public void shouldShowErrorForCredentials(@Optional("locked") String user,
+                                                @Optional("secret") String pass) {
         driver.get("https://saucedemo.com");
+        takeScreenshot("login_page_has_loaded");
         loginPage.login(user, pass);
+        log.debug(" === Debug login page === ");
+        takeScreenshot("credentials_has_entered");
+        log.info(" === User has been logged === ");
+        String expectedMsg = "Epic sadface: Sorry, this user has been locked out.";
+        NewAssertForPage.assertTextEquals(loginPage.getErrorMessageText(), expectedMsg, "Wrong error message!");
     }
 
 }

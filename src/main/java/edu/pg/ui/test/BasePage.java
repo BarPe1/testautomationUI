@@ -41,9 +41,9 @@ public class BasePage {
 
     }
 
-    @BeforeMethod(alwaysRun = true, groups = {"smoke", "regression"})
+    @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        String chromiumPath = "/home/teamsharq/IdeaProjects/test_automation_ui/testautomationUI/src/test/resources/chromedriver/chromedriver";
+        String chromiumPath = "/home/teamsharq/IdeaProjects/testautomationUI/src/test/resources/chromedriver/chromedriver";
         String chromePath = "/usr/bin/google-chrome";
 
         ChromeDriverService service = new ChromeDriverService.Builder()
@@ -80,7 +80,11 @@ public class BasePage {
             FileUtils.copyFile(srcFile, new File(path));
             log.info("Screenshot saved to: {}", path);
         } catch (IOException e) {
-            log.error("Failed to save screenshot: {}", e.getMessage());
+            if (log.isErrorEnabled()) {
+                log.error("""
+                        Failed to save screenshot: {}""",
+                        e.getMessage());
+            }
         }
     }
 }

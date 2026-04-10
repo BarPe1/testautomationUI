@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BasePage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">test-automation-ui</a> &gt; <a href="index.source.html" class="el_package">edu.pg.ui.test</a> &gt; <span class="el_source">BasePage.java</span></div><h1>BasePage.java</h1><pre class="source lang-java linenums">package edu.pg.ui.test;
 
-
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.apache.commons.io.FileUtils;
 
+import org.openqa.selenium.OutputType;
+
+import org.openqa.selenium.TakesScreenshot;
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.io.File;
 import java.time.Duration;
+import java.io.IOException;
+
+import java.text.SimpleDateFormat;
+
 import java.util.Date;
 
-<span class="fc" id="L23">@Slf4j</span>
+<span class="fc" id="L26">@Slf4j</span>
 public class BasePage {
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -28,50 +31,61 @@ public class BasePage {
     public static final String SAUCE_DEMO_URL = &quot;https://saucedemo.com&quot;;
     public static final String GOOGLE = &quot;https://google.com&quot;;
 
-<span class="fc" id="L31">    public BasePage(WebDriver driver) {</span>
-<span class="fc" id="L32">        this.driver = driver;</span>
-<span class="fc" id="L33">        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));</span>
-<span class="fc" id="L34">    }</span>
-
-<span class="fc" id="L36">    public BasePage() {</span>
-
+<span class="fc" id="L34">    public BasePage(WebDriver driver) {</span>
+<span class="fc" id="L35">        this.driver = driver;</span>
+<span class="fc" id="L36">        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));</span>
+<span class="fc" id="L37">        PageFactory.initElements(driver, driver);</span>
 <span class="fc" id="L38">    }</span>
 
-    public void click(WebElement element){
-<span class="fc" id="L41">        wait.until(ExpectedConditions.elementToBeClickable(element));  //explicitWait works on selectors, text</span>
+<span class="fc" id="L40">    public BasePage() {</span>
+
 <span class="fc" id="L42">    }</span>
 
-    public void takeScreenshot(String fileName) {
-<span class="nc" id="L45">        String timestamp = new SimpleDateFormat(&quot;yyyyMMdd_HHmmss&quot;).format(new Date());</span>
-<span class="nc" id="L46">        File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);</span>
-
-        try {
-<span class="nc" id="L49">            FileUtils.copyFile(srcFile, new File(&quot;./screenshots/&quot; + fileName + &quot;_&quot; + timestamp));</span>
-        }
-<span class="nc" id="L51">        catch (IOException e) {</span>
-<span class="nc" id="L52">            log.error(&quot;Error due to save of screenshot file{}&quot;, e.getMessage());</span>
-<span class="nc" id="L53">        }</span>
-<span class="nc" id="L54">    }</span>
-
-    public void testScreenshot() throws IOException {
-<span class="nc" id="L57">        File screenshotFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);</span>
-<span class="nc" id="L58">        FileUtils.copyFile(screenshotFile, new File(&quot;screenshot.png&quot;));</span>
-<span class="nc" id="L59">    }</span>
-
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp() {
-<span class="fc" id="L63">        log.info(&quot;Chrome options&quot;);</span>
-<span class="fc" id="L64">        ChromeOptions options = new ChromeOptions();</span>
-<span class="fc" id="L65">        options.addArguments(&quot;--start-maximized&quot;);</span>
-<span class="fc" id="L66">        driver = new ChromeDriver(options);</span>
+<span class="fc" id="L46">        String chromiumPath = &quot;/home/teamsharq/IdeaProjects/testautomationUI/src/test/resources/chromedriver/chromedriver&quot;;</span>
+<span class="fc" id="L47">        String chromePath = &quot;/usr/bin/google-chrome&quot;;</span>
 
-<span class="fc" id="L68">        log.info(&quot;Wait - duration of time 10 sec&quot;);</span>
-<span class="fc" id="L69">        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));</span>
-<span class="fc" id="L70">    }</span>
+<span class="fc" id="L49">        ChromeDriverService service = new ChromeDriverService.Builder()</span>
+<span class="fc" id="L50">                .usingDriverExecutable(new File(chromiumPath))</span>
+<span class="fc" id="L51">                .build();</span>
+
+<span class="fc" id="L53">        ChromeOptions options = new ChromeOptions();</span>
+<span class="fc" id="L54">        options.setBinary(chromePath);</span>
+<span class="fc" id="L55">        options.addArguments(&quot;--start-maximize&quot;);</span>
+
+<span class="fc" id="L57">        driver = new ChromeDriver(service, options);</span>
+<span class="fc" id="L58">        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));</span>
+<span class="fc" id="L59">    }</span>
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (driver != null) driver.quit();</span>
-<span class="fc" id="L75">    }</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (driver != null) {</span>
+<span class="fc" id="L64">            driver.quit();</span>
+<span class="fc" id="L65">            driver = null;</span>
+        }
+<span class="fc" id="L67">    }</span>
+
+    public void takeScreenshot(String testName) {
+        // 1. Tworzymy format daty dla unikalnej nazwy pliku
+<span class="fc" id="L71">        String timestamp = new SimpleDateFormat(&quot;yyyyMMdd_HHmmss&quot;).format(new Date());</span>
+
+        // 2. Rzutujemy drivera na interfejs TakesScreenshot
+<span class="fc" id="L74">        File srcFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);</span>
+
+<span class="fc" id="L76">        String path = System.getProperty(&quot;user.dir&quot;) + &quot;/screenshots/&quot; + testName + &quot;_&quot; + timestamp + &quot;.png&quot;;</span>
+
+        try {
+            // 4. Kopiujemy plik z pamięci tymczasowej na dysk
+<span class="fc" id="L80">            FileUtils.copyFile(srcFile, new File(path));</span>
+<span class="fc" id="L81">            log.info(&quot;Screenshot saved to: {}&quot;, path);</span>
+<span class="nc" id="L82">        } catch (IOException e) {</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">            if (log.isErrorEnabled()) {</span>
+<span class="nc" id="L84">                log.error(&quot;&quot;&quot;</span>
+                        Failed to save screenshot: {}&quot;&quot;&quot;,
+<span class="nc" id="L86">                        e.getMessage());</span>
+            }
+<span class="fc" id="L88">        }</span>
+<span class="fc" id="L89">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -2,24 +2,13 @@
 
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
-import static org.openqa.selenium.support.locators.RelativeLocator.with;
-
-<span class="fc" id="L16">@Slf4j</span>
+<span class="fc" id="L10">@Slf4j</span>
 public class LoginPage extends BasePage {
-
-    public LoginPage(WebDriver driver) {
-<span class="fc" id="L20">        super(driver);</span>
-<span class="fc" id="L21">        PageFactory.initElements(driver, this);</span>
-<span class="fc" id="L22">    }</span>
 
 //    //Page Object Model for alphanumeric fields
 //    private static final By LOGO = By.xpath(&quot;//*[@id='root']/div/div[@class='login_logo']&quot;);
@@ -33,81 +22,56 @@ public class LoginPage extends BasePage {
     @FindBy(className = &quot;login_logo&quot;) private WebElement logo;
     @FindBy(xpath = &quot;//*[@id='login-button']&quot;) private WebElement loginButton;
     @FindBy(css = &quot;#password&quot;) private WebElement password;
+    @FindBy(css = &quot;[data-test='error']&quot;) private WebElement errorElement;
 
-    @FindBy(css = &quot;[data-test='error']&quot;) private WebElement error;
-<span class="fc" id="L38">    private final By errorMessage = By.cssSelector(&quot;[data-test='error']&quot;);</span>
+<span class="fc" id="L27">    public LoginPage(WebDriver driver) {</span>
+<span class="fc" id="L28">    }</span>
 
     public LoginPage clickLoginButton() {
-<span class="fc" id="L41">        log.info(&quot;Click on the Login Button&quot;);</span>
-<span class="fc" id="L42">        click(loginButton);</span>
-<span class="fc" id="L43">        loginButton.click();</span>
-<span class="fc" id="L44">        return this;</span>
-    }
-
-    public void login(String user, String pass) throws Exception{
-<span class="fc" id="L48">        wait.until(ExpectedConditions.visibilityOf(username)).sendKeys(user);</span>
-<span class="fc" id="L49">        TimeUnit.SECONDS.sleep(2);</span>
-<span class="fc" id="L50">        password.sendKeys(pass);</span>
-<span class="fc" id="L51">        loginButton.click();</span>
-<span class="fc" id="L52">    }</span>
-
-    public boolean isErrorMessageDisplayed() {
-        try {
-            // Używamy krótkiego waita, by nie spowalniać testu, gdy błędu NIE MA
-<span class="nc" id="L57">            return wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).isDisplayed();</span>
-<span class="nc" id="L58">        } catch (Exception e) {</span>
-            // Jeśli elementu nie ma w DOM, JaCoCo wejdzie tutaj.
-            // Musisz mieć test, który NIE wywołuje błędu, by pokryć tę ścieżkę.
-<span class="nc" id="L61">            return false;</span>
-        }
+<span class="fc" id="L31">        log.info(&quot;Click on the Login Button&quot;);</span>
+<span class="fc" id="L32">        loginButton.click();</span>
+<span class="fc" id="L33">        return this;</span>
     }
 
     public LoginPage enterPasswordToSauceDemoWebsiteOnTestEnv(String passwordText) {
-<span class="nc" id="L66">        log.info(&quot;Enter password to the css selector&quot;);</span>
-<span class="nc" id="L67">        password.sendKeys(passwordText);</span>
-<span class="nc" id="L68">        return this;</span>
+<span class="fc" id="L37">        log.info(&quot;Enter password to the css selector&quot;);</span>
+<span class="fc" id="L38">        password.sendKeys(passwordText);</span>
+<span class="fc" id="L39">        return this;</span>
     }
 
     public LoginPage enterUsername(String usernameText) {
-<span class="nc" id="L72">        log.info(&quot;Enter username text to the id selector&quot;);</span>
-<span class="nc" id="L73">        username.sendKeys(usernameText);</span>
-<span class="nc" id="L74">        return this;</span>
+<span class="fc" id="L43">        log.info(&quot;Enter username text to the id selector&quot;);</span>
+<span class="fc" id="L44">        username.sendKeys(usernameText);</span>
+<span class="fc" id="L45">        return this;</span>
     }
 
-    public String getLogoTextFromWebsiteHeader() throws IOException {
-<span class="nc" id="L78">        log.info(&quot;Get logo text from the header from the current website{}&quot;, logo.getText());</span>
-<span class="nc" id="L79">        takeScreenshot(&quot;logo.png&quot;);</span>
-<span class="nc" id="L80">        return logo.getText();</span>
+    public String getLogoTextFromWebsiteHeader() {
+<span class="fc" id="L49">        log.info(&quot;Get logo text from the header from the current website{}&quot;, logo.getText());</span>
+<span class="fc" id="L50">        return logo.getText();</span>
     }
 
-    public String getErrorMessageText() {
-<span class="fc" id="L84">        return driver.findElement(errorMessage).getText();</span>
+    public boolean isErrorMessageDisplayed() {
+        try {
+<span class="nc" id="L55">            return errorElement.isDisplayed();</span>
+<span class="nc" id="L56">        } catch (NoSuchElementException e) {</span>
+<span class="nc" id="L57">            return false;</span>
+        }
     }
 
     public WebElement getErrorElement() {
-<span class="fc" id="L88">        return driver.findElement(errorMessage);</span>
+<span class="fc" id="L62">        return errorElement;</span>
     }
 
-    public String getLogoTextForSmartLocator() {
-<span class="nc" id="L92">        WebElement element = driver.findElement(with(By.className(&quot;login_logo&quot;)).above(username)); //Smart selector</span>
-<span class="nc" id="L93">        return String.valueOf(element.getText());</span>
+    // Pobiera tekst błędu
+    public String getErrorMessageText() {
+<span class="fc" id="L67">        return errorElement.getText();</span>
     }
 
-    public String getTextError() {
-<span class="fc" id="L97">        WebElement element = driver.findElement(By.xpath(&quot;//*[@data-test='error']&quot;));</span>
-<span class="fc" id="L98">        log.info(&quot;The error msg {}&quot;, element.getText());</span>
-<span class="fc" id="L99">        return element.getText();</span>
-    }
-
-    //Basic Shift-Left
-    protected boolean isDisplayed(WebElement element) {
-        try {
-<span class="nc" id="L105">            return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();</span>
-<span class="nc" id="L106">        } catch (Exception e) {</span>
-<span class="nc" id="L107">            log.error(&quot;Get message from catch exception {}&quot;, e.getMessage());</span>
-<span class="nc" id="L108">            return false;</span>
-        }
-    }
+    public void login(String user, String pass) {
+<span class="fc" id="L71">        enterUsername(user);</span>
+<span class="fc" id="L72">        enterPasswordToSauceDemoWebsiteOnTestEnv(pass);</span>
+<span class="fc" id="L73">        clickLoginButton();</span>
+<span class="fc" id="L74">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -92,7 +92,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">2 methods,   2 passed</span>
+                    <span class="method-stats">4 methods,   4 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -103,12 +103,22 @@
                     <div class="method-list-content passed suite-edu_pg_ui_test_run_TestRun">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-edu_pg_ui_test_run_TestRun" title="edu.pg.ui.test.run.TestRun" class="method navigator-link" hash-for-method="shouldBeErrorPopUp">shouldBeErrorPopUp</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-edu_pg_ui_test_run_TestRun" title="edu.pg.ui.test.run.TestRun" class="method navigator-link" hash-for-method="shouldOpenGoogleWebsite">shouldOpenGoogleWebsite</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-edu_pg_ui_test_run_TestRun" title="edu.pg.ui.test.run.TestRun" class="method navigator-link" hash-for-method="shouldShowErrorForLockedOutUser">shouldShowErrorForLockedOutUser</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-edu_pg_ui_test_run_TestRun" title="edu.pg.ui.test.run.TestRun" class="method navigator-link" hash-for-method="shouldShowErrorForCredentials(locked_out_user, secret_sauce)">shouldShowErrorForCredentials(locked_out_user, secret_sauce)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-edu_pg_ui_test_run_TestRun" title="edu.pg.ui.test.run.TestRun" class="method navigator-link" hash-for-method="shouldShowErrorForLockedOutUser(locked_out_user, secret_sauce)">shouldShowErrorForLockedOutUser(locked_out_user, secret_sauce)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-edu_pg_ui_test_run_TestRun" title="edu.pg.ui.test.run.TestRun" class="method navigator-link" hash-for-method="userTriesToLoginToSauceDemo">userTriesToLoginToSauceDemo</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-edu_pg_ui_test_run_TestRun -->
@@ -131,16 +141,32 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="shouldBeErrorPopUp">
-                  </a> <!-- shouldBeErrorPopUp -->
-                  <span class="method-name">shouldBeErrorPopUp</span>
+                  <a name="shouldOpenGoogleWebsite">
+                  </a> <!-- shouldOpenGoogleWebsite -->
+                  <span class="method-name">shouldOpenGoogleWebsite</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
-                  <a name="shouldShowErrorForLockedOutUser">
-                  </a> <!-- shouldShowErrorForLockedOutUser -->
+                  <a name="shouldShowErrorForCredentials(locked_out_user, secret_sauce)">
+                  </a> <!-- shouldShowErrorForCredentials(locked_out_user, secret_sauce) -->
+                  <span class="method-name">shouldShowErrorForCredentials</span>
+                  <span class="parameters">(locked_out_user,secret_sauce)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="shouldShowErrorForLockedOutUser(locked_out_user, secret_sauce)">
+                  </a> <!-- shouldShowErrorForLockedOutUser(locked_out_user, secret_sauce) -->
                   <span class="method-name">shouldShowErrorForLockedOutUser</span>
+                  <span class="parameters">(locked_out_user,secret_sauce)</span>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="userTriesToLoginToSauceDemo">
+                  </a> <!-- userTriesToLoginToSauceDemo -->
+                  <span class="method-name">userTriesToLoginToSauceDemo</span>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -184,7 +210,11 @@
               <span class="test-group-name">regression</span>
               <br/>
               <div class="method-in-group">
-                <span class="method-in-group-name">shouldBeErrorPopUp</span>
+                <span class="method-in-group-name">shouldShowErrorForCredentials</span>
+                <br/>
+              </div> <!-- method-in-group -->
+              <div class="method-in-group">
+                <span class="method-in-group-name">shouldShowErrorForLockedOutUser</span>
                 <br/>
               </div> <!-- method-in-group -->
             </div> <!-- test-group -->
@@ -204,20 +234,28 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(2);
+data.addRows(4);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'shouldShowErrorForLockedOutUser')
+data.setCell(0, 1, 'shouldOpenGoogleWebsite')
 data.setCell(0, 2, 'edu.pg.ui.test.run.TestRun')
-data.setCell(0, 3, 2548);
+data.setCell(0, 3, 817);
 data.setCell(1, 0, 1)
-data.setCell(1, 1, 'shouldBeErrorPopUp')
+data.setCell(1, 1, 'shouldShowErrorForLockedOutUser')
 data.setCell(1, 2, 'edu.pg.ui.test.run.TestRun')
-data.setCell(1, 3, 997);
+data.setCell(1, 3, 627);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'shouldShowErrorForCredentials')
+data.setCell(2, 2, 'edu.pg.ui.test.run.TestRun')
+data.setCell(2, 3, 457);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'userTriesToLoginToSauceDemo')
+data.setCell(3, 2, 'edu.pg.ui.test.run.TestRun')
+data.setCell(3, 3, 376);
 window.suiteTableData['edu_pg_ui_test_run_TestRun']= { tableData: data, tableDiv: 'times-div-edu_pg_ui_test_run_TestRun'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 3 seconds</span>
+              <span class="suite-total-time">Total running time: 2 seconds</span>
               <div id="times-div-edu_pg_ui_test_run_TestRun">
               </div> <!-- times-div-edu_pg_ui_test_run_TestRun -->
             </div> <!-- times-div -->
@@ -249,24 +287,48 @@ return data;
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">shouldBeErrorPopUp</span>
-                <span class="method-start">1340 ms</span>
+                <span class="method-name">shouldOpenGoogleWebsite</span>
+                <span class="method-start">1076 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">2344 ms</span>
+                <span class="method-start">1894 ms</span>
               </div> <!-- configuration-method after -->
               <div class="configuration-method before">
                 <span class="method-name">setUp</span>
-                <span class="method-start">2472 ms</span>
+                <span class="method-start">2019 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">shouldShowErrorForLockedOutUser</span>
-                <span class="method-start">3106 ms</span>
+                <span class="method-name">shouldShowErrorForCredentials(locked_out_user, secret_sauce)</span>
+                <span class="method-start">2541 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">tearDown</span>
-                <span class="method-start">5654 ms</span>
+                <span class="method-start">3000 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">3082 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">shouldShowErrorForLockedOutUser(locked_out_user, secret_sauce)</span>
+                <span class="method-start">3597 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">4225 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp</span>
+                <span class="method-start">4302 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">userTriesToLoginToSauceDemo</span>
+                <span class="method-start">4927 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">tearDown</span>
+                <span class="method-start">5303 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
