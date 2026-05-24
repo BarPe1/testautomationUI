@@ -4,18 +4,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebElement;
 import static org.junit.jupiter.api.Assertions.*;
 
-<span class="fc" id="L7">@Slf4j</span>
+<span class="nc" id="L7">@Slf4j</span>
 <span class="nc" id="L8">public class NewAssertForPage {</span>
 
     // Asercja dla tekstu (używana w testach logowania i Google)
     public static void assertTextEquals(String actual, String expected, String message) {
-<span class="fc" id="L12">        assertEquals(expected, actual, message);</span>
-<span class="fc" id="L13">    }</span>
+<span class="nc" id="L12">        assertEquals(expected, actual, message);</span>
+<span class="nc" id="L13">    }</span>
 
     // Asercja dla widoczności elementu (używana w isErrorMessageDisplayed)
     public static void assertVisible(WebElement element, String message) {
-<span class="fc" id="L17">        assertTrue(element.isDisplayed(), message);</span>
-<span class="fc" id="L18">    }</span>
+<span class="nc" id="L17">        assertTrue(element.isDisplayed(), message);</span>
+<span class="nc" id="L18">    }</span>
 
     // Asercja dla wyników matematycznych (używana w testach zniżek)
     public static void assertMathResult(int actual, int expected, String message) {

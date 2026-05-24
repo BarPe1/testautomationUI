@@ -1,11 +1,12 @@
 package edu.pg.ui.test;
 
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class LoginPage extends BasePage {
@@ -67,8 +68,9 @@ public class LoginPage extends BasePage {
         return errorElement.getText();
     }
 
-    public void login(String user, String pass) {
+    public void login(String user, String pass) throws Exception {
         enterUsername(user);
+        TimeUnit.SECONDS.sleep(3);
         enterPasswordToSauceDemoWebsiteOnTestEnv(pass);
         clickLoginButton();
     }

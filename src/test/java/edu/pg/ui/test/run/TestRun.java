@@ -66,8 +66,8 @@ public class TestRun extends BasePage {
 
     @Test(groups = "regression")
     @Parameters({"user", "pass"})
-    public void shouldShowErrorForCredentials(@Optional("locked") String user,
-                                                @Optional("secret") String pass) {
+    public void shouldShowErrorForCredentials(@Optional("locked_out_user") String user,
+                                                @Optional("secret_sauce") String pass) throws Exception {
         driver.get("https://saucedemo.com");
         takeScreenshot("login_page_has_loaded");
         loginPage.login(user, pass);

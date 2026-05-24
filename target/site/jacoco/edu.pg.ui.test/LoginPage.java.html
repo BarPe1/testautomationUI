@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-<span class="fc" id="L10">@Slf4j</span>
+<span class="nc" id="L10">@Slf4j</span>
 public class LoginPage extends BasePage {
 
 //    //Page Object Model for alphanumeric fields
@@ -24,30 +24,30 @@ public class LoginPage extends BasePage {
     @FindBy(css = &quot;#password&quot;) private WebElement password;
     @FindBy(css = &quot;[data-test='error']&quot;) private WebElement errorElement;
 
-<span class="fc" id="L27">    public LoginPage(WebDriver driver) {</span>
-<span class="fc" id="L28">    }</span>
+<span class="nc" id="L27">    public LoginPage(WebDriver driver) {</span>
+<span class="nc" id="L28">    }</span>
 
     public LoginPage clickLoginButton() {
-<span class="fc" id="L31">        log.info(&quot;Click on the Login Button&quot;);</span>
-<span class="fc" id="L32">        loginButton.click();</span>
-<span class="fc" id="L33">        return this;</span>
+<span class="nc" id="L31">        log.info(&quot;Click on the Login Button&quot;);</span>
+<span class="nc" id="L32">        loginButton.click();</span>
+<span class="nc" id="L33">        return this;</span>
     }
 
     public LoginPage enterPasswordToSauceDemoWebsiteOnTestEnv(String passwordText) {
-<span class="fc" id="L37">        log.info(&quot;Enter password to the css selector&quot;);</span>
-<span class="fc" id="L38">        password.sendKeys(passwordText);</span>
-<span class="fc" id="L39">        return this;</span>
+<span class="nc" id="L37">        log.info(&quot;Enter password to the css selector&quot;);</span>
+<span class="nc" id="L38">        password.sendKeys(passwordText);</span>
+<span class="nc" id="L39">        return this;</span>
     }
 
     public LoginPage enterUsername(String usernameText) {
-<span class="fc" id="L43">        log.info(&quot;Enter username text to the id selector&quot;);</span>
-<span class="fc" id="L44">        username.sendKeys(usernameText);</span>
-<span class="fc" id="L45">        return this;</span>
+<span class="nc" id="L43">        log.info(&quot;Enter username text to the id selector&quot;);</span>
+<span class="nc" id="L44">        username.sendKeys(usernameText);</span>
+<span class="nc" id="L45">        return this;</span>
     }
 
     public String getLogoTextFromWebsiteHeader() {
-<span class="fc" id="L49">        log.info(&quot;Get logo text from the header from the current website{}&quot;, logo.getText());</span>
-<span class="fc" id="L50">        return logo.getText();</span>
+<span class="nc" id="L49">        log.info(&quot;Get logo text from the header from the current website{}&quot;, logo.getText());</span>
+<span class="nc" id="L50">        return logo.getText();</span>
     }
 
     public boolean isErrorMessageDisplayed() {
@@ -59,19 +59,19 @@ public class LoginPage extends BasePage {
     }
 
     public WebElement getErrorElement() {
-<span class="fc" id="L62">        return errorElement;</span>
+<span class="nc" id="L62">        return errorElement;</span>
     }
 
     // Pobiera tekst błędu
     public String getErrorMessageText() {
-<span class="fc" id="L67">        return errorElement.getText();</span>
+<span class="nc" id="L67">        return errorElement.getText();</span>
     }
 
     public void login(String user, String pass) {
-<span class="fc" id="L71">        enterUsername(user);</span>
-<span class="fc" id="L72">        enterPasswordToSauceDemoWebsiteOnTestEnv(pass);</span>
-<span class="fc" id="L73">        clickLoginButton();</span>
-<span class="fc" id="L74">    }</span>
+<span class="nc" id="L71">        enterUsername(user);</span>
+<span class="nc" id="L72">        enterPasswordToSauceDemoWebsiteOnTestEnv(pass);</span>
+<span class="nc" id="L73">        clickLoginButton();</span>
+<span class="nc" id="L74">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
