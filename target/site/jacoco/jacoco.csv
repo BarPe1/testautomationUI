@@ -1,5 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-test-automation-ui,edu.pg.ui.test,LoginPage,79,0,0,0,23,0,10,0,10,0
-test-automation-ui,edu.pg.ui.test,NewAssertForPage,22,0,0,0,8,0,5,0,5,0
-test-automation-ui,edu.pg.ui.test,BasePage,127,0,4,0,34,0,8,0,6,0
-test-automation-ui,edu.pg.ui.test,AssertUnitClass,118,0,0,0,32,0,10,0,10,0

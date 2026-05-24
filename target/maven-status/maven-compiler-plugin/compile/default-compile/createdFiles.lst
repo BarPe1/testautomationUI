@@ -1,4 +1,3 @@
-edu/pg/ui/test/NewAssertForPage.class
-edu/pg/ui/test/AssertUnitClass.class
-edu/pg/ui/test/BasePage.class
-edu/pg/ui/test/LoginPage.class
+edu/pg/ui/pages/LoginPage.class
+edu/pg/ui/pages/BasePage.class
+edu/pg/ui/pages/InventoryPage.class

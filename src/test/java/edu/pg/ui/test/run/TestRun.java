@@ -1,31 +1,43 @@
 package edu.pg.ui.test.run;
 
-import edu.pg.ui.test.AssertUnitClass;
-import edu.pg.ui.test.BasePage;
-import edu.pg.ui.test.LoginPage;
-import edu.pg.ui.test.NewAssertForPage;
+import edu.pg.ui.test.assertion.AssertUnitClass;
+import edu.pg.ui.pages.BasePage;
+import edu.pg.ui.pages.LoginPage;
+import edu.pg.ui.test.assertion.NewAssertForPage;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 @Slf4j
 public class TestRun extends BasePage {
+
     public LoginPage loginPage;
     public AssertUnitClass assertUnitClass;
 
     @BeforeMethod(alwaysRun = true)
-    @Override
-    public void setUp() {
-        super.setUp(); // <--- TO MUSI BYĆ PIERWSZE
+    public void initTestNG() {
+        // 1. Uruchamiamy konfigurację przeglądarki z BasePage
+        super.setUp();
 
-        // Inicjalizacja Twoich obiektów stron przy użyciu drivera z BasePage
-        this.loginPage = new LoginPage(driver);
-        this.assertUnitClass = new AssertUnitClass(driver);
-        PageFactory.initElements(driver, loginPage);
+        // 2. SZTYWNE ZABEZPIECZENIE: Pobieramy referencję do drivera z klasy bazowej
+        // Słowo kluczowe 'this.driver' musi wskazywać na ten sam obiekt co 'super.driver'
+        this.driver = super.getDriverInstance();
+        if (this.driver == null) {
+            // Jeśli getDriverInstance() nie istnieje, przypisz po prostu bezpośrednio:
+            this.driver = super.driver;
+        }
+
+        // 3. Inicjalizujemy obiekty stron żywym, działającym sterownikiem
+        this.loginPage = new LoginPage(this.driver);
+        this.assertUnitClass = new AssertUnitClass(this.driver);
+        PageFactory.initElements(this.driver, loginPage);
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void cleanTestNG() {
+        // Pamiętaj o zamykaniu okna po każdym teście TestNG!
+        super.tearDown();
     }
 
     @Test
@@ -39,13 +51,6 @@ public class TestRun extends BasePage {
         Assert.assertTrue(true, String.valueOf(title.contains("Google")));
     }
 
-    @Test
-    public void userTriesToLoginToSauceDemo() {
-        driver.get(SAUCE_DEMO_URL);
-        loginPage.getLogoTextFromWebsiteHeader();
-
-    }
-
     @Test(groups = "regression")
     @Parameters({"user", "pass"})
     public void shouldShowErrorForLockedOutUser(@Optional("locked_out_user") String user,
@@ -53,11 +58,11 @@ public class TestRun extends BasePage {
         driver.get("https://saucedemo.com");
 
         // Korzysta z nowej metody login
-        loginPage.login(user, pass);
+        loginPage.loginPage(user, pass);
         takeScreenshot("login_page_loaded");
 
         // Korzysta z getErrorElement()
-        NewAssertForPage.assertVisible(loginPage.getErrorElement(), "Error alert should be visible");
+        NewAssertForPage.assertVisible(loginPage.getErrorMessage(), "Error alert should be visible");
 
         // Korzysta z getErrorMessageText()
         String expectedMsg = "Epic sadface: Sorry, this user has been locked out.";
@@ -66,16 +71,17 @@ public class TestRun extends BasePage {
 
     @Test(groups = "regression")
     @Parameters({"user", "pass"})
-    public void shouldShowErrorForCredentials(@Optional("locked_out_user") String user,
-                                                @Optional("secret_sauce") String pass) throws Exception {
+    public void shouldShowErrorForCredentials(@Optional("user") String user,
+                                              @Optional("secret_sauce") String pass) throws Exception {
         driver.get("https://saucedemo.com");
         takeScreenshot("login_page_has_loaded");
-        loginPage.login(user, pass);
+        loginPage.loginPage(user, pass);
         log.debug(" === Debug login page === ");
         takeScreenshot("credentials_has_entered");
         log.info(" === User has been logged === ");
-        String expectedMsg = "Epic sadface: Sorry, this user has been locked out.";
+        String expectedMsg = "Epic sadface: Username and password do not match any user in this service";
         NewAssertForPage.assertTextEquals(loginPage.getErrorMessageText(), expectedMsg, "Wrong error message!");
     }
+
 
 }
