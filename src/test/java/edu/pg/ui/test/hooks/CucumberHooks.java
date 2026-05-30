@@ -1,58 +1,50 @@
 package edu.pg.ui.test.hooks;
 
+import edu.pg.ui.utils.DriverManager;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.io.File;
-import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 public class CucumberHooks {
 
-    private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
-
     @Before
     public void setUp() {
-        // 1. Zdefiniowanie Twoich ścieżek lokalnych
-        String chromiumPath = "/home/teamsharq/IdeaProjects/testautomationUI/src/test/resources/chromedriver/chromedriver";
-        String chromePath = "/usr/bin/google-chrome";
-
-        // 2. Konfiguracja usługi ChromeDriverService (wskazanie pliku wykonywalnego drivera)
-        ChromeDriverService service = new ChromeDriverService.Builder()
-                .usingDriverExecutable(new File(chromiumPath))
-                .build();
-
-        // 3. Konfiguracja ChromeOptions (wskazanie lokalizacji samej przeglądarki Chrome)
         ChromeOptions options = new ChromeOptions();
-        options.setBinary(new File(chromePath));
+        options.addArguments("--remote-allow-origins=*");
 
-        // Opcjonalne flagi dla środowisk Linux (zapobiegają awariom pamięci współdzielonej)
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
+        // 1. Odcięcie systemowego magazynu haseł (kluczowe na Linuxie)
+        options.addArguments("--password-store=basic");
 
-        // 4. Inicjalizacja sterownika z użyciem przygotowanej usługi oraz opcji
-        WebDriver driver = new ChromeDriver(service, options);
+        // 2. Wyłączenie dodatkowych funkcji społecznościowych i onboardingów Google
+        options.addArguments("--disable-features=AutofillServerCommunication");
+        options.addArguments("--disable-features=PasswordManagerOnboarding");
+        options.addArguments("--disable-popup-blocking");
 
+        // 3. Eksperymentalne preferencje profilu użytkownika
+        Map<String, Object> prefs = new HashMap<>();
+        prefs.put("credentials_enable_service", false);
+        prefs.put("profile.password_manager_enabled", false);
+
+        prefs.put("profile.password_manager_leak_detection", false);
+        prefs.put("password_leak_detection", false);
+
+        options.setExperimentalOption("prefs", prefs);
+
+        WebDriver driver = new ChromeDriver(options);
+        DriverManager.setDriver(driver);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-
-        driverThreadLocal.set(driver);
     }
 
     @After
     public void tearDown() {
-        if (driverThreadLocal.get() != null) {
-            driverThreadLocal.get().quit();
-            driverThreadLocal.remove();
-        }
+        DriverManager.quitDriver();
     }
 
-    public static WebDriver getDriver() {
-        return driverThreadLocal.get();
-    }
 }

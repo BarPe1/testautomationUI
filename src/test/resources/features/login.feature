@@ -1,4 +1,4 @@
-Feature: SauceDemo Login Functionality
+Feature: SauceDemo Login Functionalities
 
   Background: User navigates to the login page
     Given The user opens the SauceDemo login page

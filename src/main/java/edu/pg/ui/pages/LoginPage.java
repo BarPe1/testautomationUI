@@ -35,7 +35,7 @@ public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // Ta linijka mapuje adnotacje @FindBy na żywe elementy przeglądarki. Bez niej pola będą null!
+
         PageFactory.initElements(driver, this);
     }
 
@@ -51,6 +51,7 @@ public class LoginPage extends BasePage {
     }
 
     public void clickLogin() {
+        log.info("Click login button");
         loginButton.click();
     }
 

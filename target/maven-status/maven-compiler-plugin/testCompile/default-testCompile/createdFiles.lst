@@ -1,6 +1,0 @@
-edu/pg/ui/test/hooks/CucumberHooks.class
-edu/pg/ui/test/assertion/AssertUnitClass.class
-edu/pg/ui/test/runner/CucumberRunner.class
-edu/pg/ui/test/assertion/NewAssertForPage.class
-edu/pg/ui/test/run/TestRun.class
-edu/pg/ui/test/stepdefinitions/LoginSteps.class
